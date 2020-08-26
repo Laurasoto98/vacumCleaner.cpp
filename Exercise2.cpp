@@ -2,92 +2,87 @@
 #include <stdlib.h>
 using namespace std;
 
-int randomstatus(int dirt);
-bool isClean(int row, int col, int* hashMap);
-void printhash(int row, int col, int* hashMap, int x, int y);
+int randomValue();
+bool isClean(int row, int col, int* environmenr);
+void printhash(int row, int col, int* environmenr, int x, int y);
 
 int main() {
       int x, y;
       int row, col;
-      int dirt=50;
-      cout << "Enter the initial location for the agent";
+      cout << "Enter the initial location for the agent: \n";
       cin >> x >> y;
-      cout << "Enter the size of the environment";
+      cout << "Enter the size of the environment: \n";
       cin >> row >> col;
-      int* hashMap = new int[row * col]();
-      int rand_move;
+      int* environmenr = new int[row * col]();
       
       for (int i = 0; i < row; i++) {
           for (int j = 0; j < col; j++){
-                hashMap[i * row + j] = randomstatus(dirt);
+                environmenr[i * row + j] = randomValue();
           }
         }
         
     int score=0;
     cout<<"Initial Environment:\n";
-    printhash(row, col, hashMap, x, y);
+    printhash(row, col, environmenr, x, y);
     cout<< endl;
-    bool clean= isClean(row, col, hashMap);
+    bool clean= isClean(row, col, environmenr);
     while (clean==false) {
-        if (hashMap[x * row + y] == 0) {
-            hashMap[x * row + y] = 1;
+        if (environmenr[x * row + y] == 0) {
+            environmenr[x * row + y] = 1;
             score+=10;
         }
-        else{
-            score-=5;
-        }
-        rand_move = rand() % 4 + 1;
-        switch (rand_move) {
+        int move = rand() % 4 + 1;
+        switch (move) {
             case 1:
                 if (!(x - 1 < 0)) {
-                    cout<< "move up:\n";
+                    cout<< "Move up:\n";
                     x--;
                     score--;
-                    printhash(row, col, hashMap, x, y);
+                    printhash(row, col, environmenr, x, y);
                     cout<< endl;
-                    cout << "The score is: " << score << endl;
+                    
                 }
                 break;
              case 2:
                 if (!(x + 1 >= row)) {
-                    cout<< "move down:\n";
+                    cout<< "Move down:\n";
                     x++;
                     score--;
-                    printhash(row, col, hashMap, x, y);
+                    printhash(row, col, environmenr, x, y);
                     cout<< endl;
-                    cout << "The score is: " << score << endl;
+                    
                 }
                 break;
           case 3:
                 if (!(y - 1 < 0)) {
-                    cout<< "move left:\n";
+                    cout<< "Move left:\n";
                     y--;
                     score--;
-                    printhash(row, col, hashMap, x, y);
+                    printhash(row, col, environmenr, x, y);
                     cout<< endl;
-                    cout << "The score is: " << score << endl;
+                    
                 }
                 break;
           case 4:
                 if (!(y + 1 >= col)) {
-                    cout<< "move right:\n";
+                    cout<< "Move right:\n";
                     y++;
                     score--;
-                    printhash(row, col, hashMap, x, y);
+                    printhash(row, col, environmenr, x, y);
                     cout<< endl;
-                    cout << "The score is: " << score << endl;
+                    
                 }
                 break;
           }
-        clean= isClean(row, col, hashMap);
+        clean= isClean(row, col, environmenr);
     }
     cout<<"Final Environment:\n";
-    printhash(row, col, hashMap, x, y);
+    printhash(row, col, environmenr, x, y);
     cout<< endl;
     cout << "The final score is: " << score << endl;
 }
 
-int randomstatus(int dirt){
+int randomValue(){
     int x=rand();
     if(x%2==0){
         return 1;
@@ -97,11 +92,12 @@ int randomstatus(int dirt){
     }
 }
 
-void printhash(int row, int col, int* hashMap, int x, int y){
+void printhash(int row, int col, int* environmenr, int x, int y){
+    cout<<endl;
     for (int i = 0; i < row; i++) {
           for (int j = 0; j < col; j++)
           if(i==x && j==y){
-              if(hashMap[i * row + j]==0){
+              if(environmenr[i * row + j]==0){
                 cout <<  "Dirty-Agent    ";
               }
               else{
@@ -109,7 +105,7 @@ void printhash(int row, int col, int* hashMap, int x, int y){
               }
           }
           else{
-            if(hashMap[i * row + j]==0){
+            if(environmenr[i * row + j]==0){
                 cout <<  "Dirty          ";
               }
               else{
@@ -120,10 +116,10 @@ void printhash(int row, int col, int* hashMap, int x, int y){
     }
 }
 
-bool isClean(int row, int col, int* hashMap){
+bool isClean(int row, int col, int* environmenr){
     for (int i = 0; i < row; i++) {
           for (int j = 0; j < col; j++){
-                if(hashMap[i * row + j]==0){
+                if(environmenr[i * row + j]==0){
                     return false;
                 }
             }
