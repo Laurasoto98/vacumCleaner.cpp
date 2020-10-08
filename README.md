@@ -1,1 +1,4 @@
 # vacumCleaner.cpp
+The goal of this code is to implement a performance measuring environment simulator for a vacum cleaner. When compiling the code the the user needs to inpun the location for the vacum cleaner[row][col], then it should enter the size of the environment, of the matrix, this needs to include the location where the vacum cleaner was previously initialized. 
+The algorithm displays the initial environment, a matrix just initialized, with a randomly selection of each state as clean or dirty. The vacum cleaner starts from the assigned initial position, and moving only up, down, left, and right, tries to clean the entire environment in the less amount of steps. We use a performance measurement to determine the score of each move. Each movement of the agent/vacum cleaner, is displayed, as well as the final score. 
+
